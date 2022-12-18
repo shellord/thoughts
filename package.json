@@ -4,8 +4,30 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install",
+    "lint-prettier": "prettier --write './app/**/*.(js|jsx|ts|tsx)'  './server/src/**/*.(js|jsx|ts|tsx)'",
+    "app:lint-eslint": "eslint \"app/src/**/*.{ts,tsx}\" --fix -c app/.eslintrc.js",
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "app/**/*.{js,ts,jsx,tsx}": [
+      "prettier --write",
+      "eslint  --fix"
+    ],
+    "server/src/**/*.{js,ts,jsx,tsx}": [
+      "prettier --write"
+    ],
+    "*.json": [
+      "prettier --write"
+    ]
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.30.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.1.0",
+    "prettier": "^2.8.1"
+  }
 }
