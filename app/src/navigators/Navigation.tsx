@@ -1,8 +1,14 @@
 import React from 'react';
 import RootStack from './RootStack';
+import AuthStack from './AuthStack';
 
 const Navigation = () => {
-  return <RootStack />;
+  const isLoggedIn = false;
+
+  if (isLoggedIn) {
+    return <RootStack />;
+  }
+  return <AuthStack />;
 };
 
 export default Navigation;
