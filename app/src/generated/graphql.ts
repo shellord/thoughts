@@ -19,6 +19,16 @@ export type Scalars = {
   Float: number;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  register: User;
+};
+
+export type MutationRegisterArgs = {
+  email: Scalars['String'];
+  name: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   me: User;
@@ -29,6 +39,21 @@ export type User = {
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['ID']>;
   name?: Maybe<Scalars['String']>;
+};
+
+export type RegisterUserMutationVariables = Exact<{
+  name: Scalars['String'];
+  email: Scalars['String'];
+}>;
+
+export type RegisterUserMutation = {
+  __typename?: 'Mutation';
+  register: {
+    __typename?: 'User';
+    id?: string | null;
+    name?: string | null;
+    email?: string | null;
+  };
 };
 
 export type CurrentUserQueryVariables = Exact<{[key: string]: never}>;
@@ -43,6 +68,59 @@ export type CurrentUserQuery = {
   };
 };
 
+export const RegisterUserDocument = gql`
+  mutation RegisterUser($name: String!, $email: String!) {
+    register(name: $name, email: $email) {
+      id
+      name
+      email
+    }
+  }
+`;
+export type RegisterUserMutationFn = Apollo.MutationFunction<
+  RegisterUserMutation,
+  RegisterUserMutationVariables
+>;
+
+/**
+ * __useRegisterUserMutation__
+ *
+ * To run a mutation, you first call `useRegisterUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRegisterUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [registerUserMutation, { data, loading, error }] = useRegisterUserMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useRegisterUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RegisterUserMutation,
+    RegisterUserMutationVariables
+  >,
+) {
+  const options = {...defaultOptions, ...baseOptions};
+  return Apollo.useMutation<
+    RegisterUserMutation,
+    RegisterUserMutationVariables
+  >(RegisterUserDocument, options);
+}
+export type RegisterUserMutationHookResult = ReturnType<
+  typeof useRegisterUserMutation
+>;
+export type RegisterUserMutationResult =
+  Apollo.MutationResult<RegisterUserMutation>;
+export type RegisterUserMutationOptions = Apollo.BaseMutationOptions<
+  RegisterUserMutation,
+  RegisterUserMutationVariables
+>;
 export const CurrentUserDocument = gql`
   query CurrentUser {
     me {

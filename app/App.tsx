@@ -4,13 +4,16 @@ import {ApolloProvider} from '@apollo/client';
 import Navigation from '~/navigators/Navigation';
 import '~/lib/init';
 import {client} from '~/lib/apollo';
+import RootProvider from '~/context/RootContext';
 
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <NavigationContainer>
-        <Navigation />
-      </NavigationContainer>
+      <RootProvider>
+        <NavigationContainer>
+          <Navigation />
+        </NavigationContainer>
+      </RootProvider>
     </ApolloProvider>
   );
 };
