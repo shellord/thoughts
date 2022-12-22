@@ -6,7 +6,7 @@
   "scripts": {
     "compile": "tsc",
     "start": "npm run compile && node ./dist/index.js",
-    "dev": "concurrently 'tsnd --respawn --transpile-only src/index.ts' 'graphql-codegen --watch \"src/schema.graphql\"'",
+    "dev": "concurrently 'tsnd --respawn --transpile-only -r tsconfig-paths/register src/index.ts ' 'graphql-codegen --watch \"src/schema.graphql\"'",
     "generate": "graphql-codegen",
     "prestart": "yarn generate",
     "predev": "yarn generate"
@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@apollo/server": "^4.3.0",
+    "firebase-admin": "^11.4.0",
     "graphql": "^16.6.0"
   }
 }

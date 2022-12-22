@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
+import { Context } from "./src/context";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -21,15 +22,14 @@ export type Scalars = {
 
 export type Query = {
   __typename?: "Query";
-  hello: Scalars["String"];
   me: User;
 };
 
 export type User = {
   __typename?: "User";
-  email: Scalars["String"];
-  id: Scalars["ID"];
-  name: Scalars["String"];
+  email?: Maybe<Scalars["String"]>;
+  id?: Maybe<Scalars["ID"]>;
+  name?: Maybe<Scalars["String"]>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -159,24 +159,23 @@ export type ResolversParentTypes = ResolversObject<{
 }>;
 
 export type QueryResolvers<
-  ContextType = any,
+  ContextType = Context,
   ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
 > = ResolversObject<{
-  hello?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   me?: Resolver<ResolversTypes["User"], ParentType, ContextType>;
 }>;
 
 export type UserResolvers<
-  ContextType = any,
+  ContextType = Context,
   ParentType extends ResolversParentTypes["User"] = ResolversParentTypes["User"]
 > = ResolversObject<{
-  email?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes["ID"]>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type Resolvers<ContextType = any> = ResolversObject<{
+export type Resolvers<ContextType = Context> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 }>;

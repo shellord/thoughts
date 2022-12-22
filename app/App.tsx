@@ -1,13 +1,9 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import {ApolloProvider} from '@apollo/client';
 import Navigation from '~/navigators/Navigation';
 import '~/lib/init';
-
-const client = new ApolloClient({
-  uri: 'localhost:4000/graphql',
-  cache: new InMemoryCache(),
-});
+import {client} from '~/lib/apollo';
 
 const App = () => {
   return (

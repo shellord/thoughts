@@ -1,17 +1,12 @@
 import type { QueryResolvers } from "~/types/graphql";
 
 export const Query: QueryResolvers = {
-  hello: () => {
-    return "hello saheen";
-  },
-  me: (req, res, ctx) => {
-    console.log(req);
-    console.log(res);
-    console.log(ctx);
+  me: (_, __, ctx) => {
+    const { userId, name, email } = ctx;
     return {
-      id: "1",
-      name: "saheen",
-      email: "sfsd@gd.com",
+      id: userId,
+      name,
+      email,
     };
   },
 };
