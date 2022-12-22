@@ -20,10 +20,6 @@ const LoginScreen = () => {
     return auth().signInWithCredential(googleCredential);
   }
 
-  function onAuthStateChanged(user: any) {
-    console.log(user);
-  }
-
   async function onFacebookButtonPress() {
     // Attempt login with permissions
     const result = await LoginManager.logInWithPermissions([
@@ -50,11 +46,6 @@ const LoginScreen = () => {
     // Sign-in the user with the credential
     return auth().signInWithCredential(facebookCredential);
   }
-
-  React.useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, []);
 
   return (
     <Container>
