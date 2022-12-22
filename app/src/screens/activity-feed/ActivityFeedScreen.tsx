@@ -2,7 +2,7 @@ import React from 'react';
 import {Text} from 'react-native';
 import Container from '~/components/ui/Container';
 import type {RootStackNavigationProp} from '~/navigators/types';
-import {useCurrentUserQuery} from '~/types/graphql';
+import {useCurrentUserQuery} from '~/generated/graphql';
 
 const ActivityFeedScreen: React.FC<
   RootStackNavigationProp<'ActivityFeed'>
