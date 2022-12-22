@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/saheenshoukath/.nvm/versions/node/v18.12.1/bin/node /opt/homebrew/bin/yarn add —D tsconfig-paths
+  /Users/saheenshoukath/.nvm/versions/node/v18.12.1/bin/node /opt/homebrew/bin/yarn add -D ts-config-paths
 
 PATH: 
   /Users/saheenshoukath/Library/pnpm:/Users/saheenshoukath/.nvm/versions/node/v18.12.1/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/saheenshoukath/.fig/bin:/Users/saheenshoukath/.local/bin:/Users/saheenshoukath/Library/Android/sdk/emulator:/Users/saheenshoukath/Library/Android/sdk/tools:/Users/saheenshoukath/Library/Android/sdk/tools/bin:/Users/saheenshoukath/Library/Android/sdk/platform-tools:/Users/saheenshoukath/dev/sdks/flutter/bin:/Users/saheenshoukath/Library/Application Support/JetBrains/Toolbox/scripts
@@ -14,15 +14,17 @@ Platform:
   darwin arm64
 
 Trace: 
-  TypeError [ERR_UNESCAPED_CHARACTERS]: https://registry.npmjs.org/—D: Request path contains unescaped characters
-      at new NodeError (node:internal/errors:393:5)
-      at new ClientRequest (node:_http_client:182:13)
-      at Object.request (node:https:360:10)
-      at module.exports.Request.start (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:141445:32)
-      at module.exports.Request.end (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:142204:10)
-      at end (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:141258:14)
-      at Immediate.<anonymous> (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:141272:7)
-      at process.processImmediate (node:internal/timers:471:21)
+  Error: https://registry.npmjs.org/ts-config-paths: Not found
+      at params.callback [as _callback] (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:67029:18)
+      at self.callback (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:140883:22)
+      at Request.emit (node:events:513:28)
+      at Request.<anonymous> (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:141855:10)
+      at Request.emit (node:events:513:28)
+      at IncomingMessage.<anonymous> (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:141777:12)
+      at Object.onceWrapper (node:events:627:28)
+      at IncomingMessage.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1359:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 
 npm manifest: 
   {
@@ -33,7 +35,7 @@ npm manifest:
     "scripts": {
       "compile": "tsc",
       "start": "npm run compile && node ./dist/index.js",
-      "dev": "concurrently 'tsnd --respawn --transpile-only src/index.ts' 'graphql-codegen --watch \"src/schema.graphql\"'",
+      "dev": "concurrently 'tsnd --respawn --transpile-only  src/index.ts ' 'graphql-codegen --watch \"src/schema.graphql\"'",
       "generate": "graphql-codegen",
       "prestart": "yarn generate",
       "predev": "yarn generate"
@@ -51,6 +53,7 @@ npm manifest:
     },
     "dependencies": {
       "@apollo/server": "^4.3.0",
+      "@graphql-tools/schema": "^9.0.12",
       "firebase-admin": "^11.4.0",
       "graphql": "^16.6.0"
     }
@@ -1179,7 +1182,7 @@ Lockfile:
       "@graphql-tools/utils" "9.1.3"
       tslib "^2.4.0"
   
-  "@graphql-tools/schema@9.0.12", "@graphql-tools/schema@^9.0.0":
+  "@graphql-tools/schema@9.0.12", "@graphql-tools/schema@^9.0.0", "@graphql-tools/schema@^9.0.12":
     version "9.0.12"
     resolved "https://registry.yarnpkg.com/@graphql-tools/schema/-/schema-9.0.12.tgz#73910fab315bd16098b989db22f967a1dc7f93dd"
     integrity sha512-DmezcEltQai0V1y96nwm0Kg11FDS/INEFekD4nnVgzBqawvznWqK6D6bujn+cw6kivoIr3Uq//QmU/hBlBzUlQ==

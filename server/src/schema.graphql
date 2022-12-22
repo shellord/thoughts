@@ -1,3 +1,5 @@
+directive @auth on FIELD_DEFINITION
+
 type User {
   id: ID
   name: String
@@ -5,5 +7,5 @@ type User {
 }
 
 type Query {
-  me: User!
+  me: User! @auth
 }

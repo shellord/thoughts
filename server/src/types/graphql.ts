@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
-import { Context } from "./src/context";
+import { Context } from "~/context";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -158,6 +158,15 @@ export type ResolversParentTypes = ResolversObject<{
   User: User;
 }>;
 
+export type AuthDirectiveArgs = {};
+
+export type AuthDirectiveResolver<
+  Result,
+  Parent,
+  ContextType = Context,
+  Args = AuthDirectiveArgs
+> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
 export type QueryResolvers<
   ContextType = Context,
   ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
@@ -178,4 +187,8 @@ export type UserResolvers<
 export type Resolvers<ContextType = Context> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+}>;
+
+export type DirectiveResolvers<ContextType = Context> = ResolversObject<{
+  auth?: AuthDirectiveResolver<any, any, ContextType>;
 }>;
