@@ -9,3 +9,7 @@ type User {
 type Query {
   me: User! @auth
 }
+
+type Mutation {
+  register(name: String!, email: String!): User! @auth
+}

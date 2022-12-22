@@ -11,6 +11,9 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & {
+  [P in K]-?: NonNullable<T[P]>;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -18,6 +21,16 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+};
+
+export type Mutation = {
+  __typename?: "Mutation";
+  register: User;
+};
+
+export type MutationRegisterArgs = {
+  email: Scalars["String"];
+  name: Scalars["String"];
 };
 
 export type Query = {
@@ -144,6 +157,7 @@ export type DirectiveResolverFn<
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
   ID: ResolverTypeWrapper<Scalars["ID"]>;
+  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars["String"]>;
   User: ResolverTypeWrapper<User>;
@@ -153,6 +167,7 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars["Boolean"];
   ID: Scalars["ID"];
+  Mutation: {};
   Query: {};
   String: Scalars["String"];
   User: User;
@@ -166,6 +181,18 @@ export type AuthDirectiveResolver<
   ContextType = Context,
   Args = AuthDirectiveArgs
 > = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type MutationResolvers<
+  ContextType = Context,
+  ParentType extends ResolversParentTypes["Mutation"] = ResolversParentTypes["Mutation"]
+> = ResolversObject<{
+  register?: Resolver<
+    ResolversTypes["User"],
+    ParentType,
+    ContextType,
+    RequireFields<MutationRegisterArgs, "email" | "name">
+  >;
+}>;
 
 export type QueryResolvers<
   ContextType = Context,
@@ -185,6 +212,7 @@ export type UserResolvers<
 }>;
 
 export type Resolvers<ContextType = Context> = ResolversObject<{
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 }>;

@@ -16,16 +16,16 @@ const BottomTabBar = () => {
     let icon = '';
 
     switch (routeName) {
-      case 'ActivityFeedScreen':
+      case 'ActivityFeed':
         icon = 'ios-home-outline';
         break;
-      case 'ProfileScreen':
+      case 'Profile':
         icon = 'ios-person-outline';
         break;
-      case 'SearchScreen':
+      case 'Search':
         icon = 'ios-search-outline';
         break;
-      case 'NotificationScreen':
+      case 'Notification':
         icon = 'ios-notifications-outline';
         break;
     }
@@ -74,25 +74,25 @@ const BottomTabBar = () => {
           );
         }}>
         <CurvedBottomBar.Screen
-          name="ActivityFeedScreen"
+          name="ActivityFeed"
           position="LEFT"
           //@ts-ignore
           component={ActivityFeedScreen}
         />
         <CurvedBottomBar.Screen
-          name="SearchScreen"
+          name="Search"
           position="LEFT"
           //@ts-ignore
           component={SearchScreen}
         />
         <CurvedBottomBar.Screen
-          name="NotificationScreen"
+          name="Notification"
           //@ts-ignore
           component={NotificationScreen}
           position="RIGHT"
         />
         <CurvedBottomBar.Screen
-          name="ProfileScreen"
+          name="Profile"
           //@ts-ignore
           component={ProfileScreen}
           position="RIGHT"
