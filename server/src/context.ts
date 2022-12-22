@@ -7,34 +7,29 @@ export type Context = {
   email: string | null;
 };
 
+const InvalidUser: Context = {
+  userId: null,
+  name: null,
+  email: null,
+};
+
 export const createContext = async ({ req }: any) => {
   const authHeader = req.headers.authorization || "";
-
   const token = authHeader.split(" ")[1];
 
   if (!token) {
-    throw new GraphQLError("User is not authenticated", {
-      extensions: {
-        code: "UNAUTHENTICATED",
-        http: { status: 401 },
-      },
-    });
+    return InvalidUser;
   }
 
   try {
+    console.log("token", token);
     const decodedToken = await getAuth().verifyIdToken(token);
-    console.log("deconde", decodedToken);
     return {
       userId: decodedToken.uid,
       name: decodedToken.name,
       email: decodedToken.email,
     };
   } catch (e) {
-    throw new GraphQLError("User is not authenticated", {
-      extensions: {
-        code: "UNAUTHENTICATED",
-        http: { status: 401 },
-      },
-    });
+    return InvalidUser;
   }
 };

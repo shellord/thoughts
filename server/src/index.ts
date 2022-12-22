@@ -1,15 +1,23 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { readFileSync } from "fs";
+import { makeExecutableSchema } from "@graphql-tools/schema";
 import { resolvers } from "./resolvers";
 import { createContext } from "./context";
-import "~/lib/init";
+import "./lib/init";
+import { authDirectiveTransformer } from "./directives/auth-directive";
 
 const typeDefs = readFileSync(__dirname + "/schema.graphql", "utf8");
 
-const server = new ApolloServer({
+let schema = makeExecutableSchema({
   typeDefs,
   resolvers,
+});
+
+schema = authDirectiveTransformer(schema, "auth");
+
+const server = new ApolloServer({
+  schema,
 });
 
 (async () => {
