@@ -2,3 +2,4 @@ node_modules
 dist/
 serviceAccount.json
 .env
+src/types/graphql.ts
