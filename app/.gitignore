@@ -62,4 +62,6 @@ buck-out/
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
+
+#custom
 src/generated/
