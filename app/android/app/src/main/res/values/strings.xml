@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">app</string>
+    <string name="app_name">Thoughts</string>
     <string name="facebook_app_id">708874900566190</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">f61be4ef3e45a3b42de3288dab61b981</string>

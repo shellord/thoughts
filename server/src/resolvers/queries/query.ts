@@ -3,11 +3,11 @@ import type { QueryResolvers } from "~/types/graphql";
 
 export const Query: QueryResolvers = {
   me: async (_, __, ctx) => {
-    const { userId, name, email, prisma } = ctx;
+    const { prisma, firebaseId } = ctx;
 
     const user = await prisma.user.findUnique({
       where: {
-        firebaseId: userId!,
+        firebaseId,
       },
     });
 
@@ -21,9 +21,30 @@ export const Query: QueryResolvers = {
     }
 
     return {
-      id: user?.id,
-      name,
-      email,
+      id: user.id,
+      name: user.name,
+      email: user.email,
     };
+  },
+
+  posts: async (_, __, { firebaseId, prisma }) => {
+    const posts = await prisma.post.findMany({
+      where: {
+        authorId: firebaseId,
+      },
+      include: {
+        author: true,
+      },
+    });
+
+    return posts.map((post) => ({
+      id: post.id,
+      content: post.content,
+      author: {
+        id: post.author.id,
+        name: post.author.name,
+        email: post.author.email,
+      },
+    }));
   },
 };

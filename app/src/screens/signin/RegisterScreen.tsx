@@ -1,10 +1,10 @@
 import React from 'react';
 import {Button, TextInput, View} from 'react-native';
-import Container from '~/components/ui/Container';
 import type {AuthStackNavigationProp} from '~/navigators/types';
+import auth from '@react-native-firebase/auth';
 import Font from '~/components/ui/Font';
 import tw from '~/lib/tailwind';
-import auth from '@react-native-firebase/auth';
+import Container from '~/components/ui/Container';
 import {useRegisterUserMutation} from '~/generated/graphql';
 import {useRootContext} from '~/context/RootContext';
 
@@ -21,11 +21,10 @@ const RegisterScreen: React.FC<AuthStackNavigationProp<'Register'>> = () => {
   }, [currentUser]);
 
   const onRegister = () => {
-    console.log(name, email);
     registerUser({
       variables: {
-        name: currentUser?.displayName || '',
-        email: currentUser?.email || '',
+        name,
+        email,
       },
       onCompleted: () => {
         setIsLoggedIn(true);

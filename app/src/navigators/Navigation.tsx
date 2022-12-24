@@ -15,9 +15,16 @@ const Navigation = () => {
   const {data: currentUser, loading} = useCurrentUserQuery({
     skip: !isAuthReady,
     fetchPolicy: 'no-cache',
+    onError: error => {
+      console.log(error);
+    },
   });
 
+  console.log(currentUser);
   React.useEffect(() => {
+    fetch('http://192.168.1.2:4000/')
+      .then(data => console.log(data))
+      .catch(error => console.log('eror', error));
     const subscriber = auth().onAuthStateChanged(user => {
       if (user) {
         setIsAuthReady(true);
