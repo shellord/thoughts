@@ -12,7 +12,7 @@ const Navigation = () => {
   const {isLoggedIn, setIsLoggedIn} = useRootContext();
   const navigation = useNavigation();
 
-  const {data: currentUser} = useCurrentUserQuery({
+  const {data: currentUser, loading} = useCurrentUserQuery({
     skip: !isAuthReady,
     fetchPolicy: 'no-cache',
   });
@@ -22,18 +22,23 @@ const Navigation = () => {
       if (user) {
         setIsAuthReady(true);
         if (currentUser?.me.id) {
-          setIsLoggedIn(true);
-        } else {
+          return setIsLoggedIn(true);
+        }
+        if (!loading) {
           //@ts-ignore
           navigation.navigate('Register');
         }
-      } else {
-        setIsLoggedIn(false);
-        setIsAuthReady(false);
+        return;
       }
+      setIsLoggedIn(false);
+      setIsAuthReady(false);
     });
     return subscriber;
-  }, [currentUser, navigation, setIsLoggedIn]);
+  }, [currentUser, navigation, setIsLoggedIn, loading, isAuthReady]);
+
+  if (loading) {
+    return null;
+  }
 
   if (isLoggedIn) {
     return <RootStack />;
