@@ -1,15 +1,23 @@
 directive @auth on FIELD_DEFINITION
 
 type User {
-  id: ID
-  name: String
-  email: String
+  id: ID!
+  name: String!
+  email: String!
+}
+
+type Post {
+  id: ID!
+  content: String!
+  author: User!
 }
 
 type Query {
   me: User! @auth
+  posts: [Post!]! @auth
 }
 
 type Mutation {
   register(name: String!, email: String!): User! @auth
+  createPost(content: String!): Post! @auth
 }

@@ -22,7 +22,7 @@ export const authDirectiveTransformer = (
           context: Context,
           info: unknown
         ) => {
-          if (!context.userId) {
+          if (!context.firebaseId) {
             throw new GraphQLError("User is not authenticated", {
               extensions: {
                 code: "UNAUTHENTICATED",

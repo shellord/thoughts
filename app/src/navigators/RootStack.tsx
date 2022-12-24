@@ -10,8 +10,11 @@ import ActivityFeedScreen from '~/screens/activity-feed/ActivityFeedScreen';
 import ProfileScreen from '~/screens/profile/ProfileScreen';
 import SearchScreen from '~/screens/search/SearchScreen';
 import NotificationScreen from '~/screens/notifications/NotificationScreen';
+import PostModal from '~/components/PostModal';
 
 const BottomTabBar = () => {
+  const [postModalVisible, setPostModalVisible] = React.useState(false);
+
   const _renderIcon = (routeName: string, selectedTab: string) => {
     let icon = '';
 
@@ -39,8 +42,17 @@ const BottomTabBar = () => {
     );
   };
 
+  const onModalOpen = () => {
+    setPostModalVisible(true);
+  };
+
+  const onCloseModal = () => {
+    setPostModalVisible(false);
+  };
+
   return (
     <View style={tw`flex-1`}>
+      <PostModal isVisible={postModalVisible} onClose={onCloseModal} />
       <CurvedBottomBar.Navigator
         type={'DOWN'}
         height={60}
@@ -54,7 +66,7 @@ const BottomTabBar = () => {
           headerShown: false,
         }}
         renderCircle={() => (
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onModalOpen}>
             <LinearGradient
               colors={['#ED5096', '#B766D5']}
               start={{x: 0, y: 1}}
