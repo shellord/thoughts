@@ -1,5 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {CurvedBottomBar} from 'react-native-curved-bottom-bar';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -10,9 +11,25 @@ import ActivityFeedScreen from '~/screens/activity-feed/ActivityFeedScreen';
 import ProfileScreen from '~/screens/profile/ProfileScreen';
 import SearchScreen from '~/screens/search/SearchScreen';
 import NotificationScreen from '~/screens/notifications/NotificationScreen';
+import SettingsScreen from '~/screens/profile/SettingsScreen';
 import PostModal from '~/components/PostModal';
+import {ProfileStackParamList} from './types';
 
-const BottomTabBar = () => {
+const ProfileStack = () => {
+  const Stack = createNativeStackNavigator<ProfileStackParamList>();
+
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const BottomTabBar: React.FC = () => {
   const [postModalVisible, setPostModalVisible] = React.useState(false);
 
   const _renderIcon = (routeName: string, selectedTab: string) => {
@@ -22,7 +39,7 @@ const BottomTabBar = () => {
       case 'ActivityFeed':
         icon = 'ios-home-outline';
         break;
-      case 'Profile':
+      case 'ProfileStack':
         icon = 'ios-person-outline';
         break;
       case 'Search':
@@ -104,9 +121,9 @@ const BottomTabBar = () => {
           position="RIGHT"
         />
         <CurvedBottomBar.Screen
-          name="Profile"
+          name="ProfileStack"
           //@ts-ignore
-          component={ProfileScreen}
+          component={ProfileStack}
           position="RIGHT"
         />
       </CurvedBottomBar.Navigator>
