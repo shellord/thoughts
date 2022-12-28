@@ -26,6 +26,7 @@ const ProfileScreen = () => {
           followers={100}
           following={100}
           profileImage="https://picsum.photos/200"
+          bio="Just another guy"
         />
         <Font>ProfileScreen</Font>
         <Pressable onPress={onLogout}>

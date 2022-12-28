@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import Container from '~/components/ui/Container';
+import Font from '~/components/ui/Font';
 
 const SettingsScreen = () => {
   return (
-    <View>
-      <Text>SettingsScreen</Text>
-    </View>
+    <Container>
+      <Font>SettingsScreen</Font>
+    </Container>
   );
 };
 
