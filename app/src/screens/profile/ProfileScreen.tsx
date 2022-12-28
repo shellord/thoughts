@@ -1,18 +1,16 @@
 import React from 'react';
-import {Pressable, ScrollView} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import Container from '~/components/ui/Container';
-import auth from '@react-native-firebase/auth';
 import ProfileSection from '~/components/ProfileSection';
 import tw from '~/lib/tailwind';
 import {useCurrentUserQuery} from '~/generated/graphql';
+import {useCurrentUserPostsQuery} from '~/generated/graphql';
+import PostCard from '~/components/PostCard';
 import Font from '~/components/ui/Font';
 
 const ProfileScreen = () => {
-  const onLogout = () => {
-    auth().signOut();
-  };
-
   const {data: currentUser} = useCurrentUserQuery();
+  const {data: currentUserPosts} = useCurrentUserPostsQuery();
 
   return (
     <Container>
@@ -28,10 +26,16 @@ const ProfileScreen = () => {
           profileImage="https://picsum.photos/200"
           bio="Just another guy"
         />
-        <Font>ProfileScreen</Font>
-        <Pressable onPress={onLogout}>
-          <Font>Logout</Font>
-        </Pressable>
+        <View style={tw`mt-3`} />
+        <Font className="text-base font-bold">Thoughts</Font>
+        {currentUser &&
+          currentUserPosts?.posts.map(post => (
+            <PostCard
+              key={post.id}
+              content={post.content}
+              user={currentUser?.me}
+            />
+          ))}
       </ScrollView>
     </Container>
   );

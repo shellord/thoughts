@@ -1,0 +1,6 @@
+query CurrentUserPosts {
+  posts {
+    id
+    content
+  }
+}

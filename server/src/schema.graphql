@@ -14,7 +14,7 @@ type Post {
 
 type Query {
   me: User! @auth
-  posts: [Post!]! @auth
+  posts(userId: String): [Post!]! @auth
 }
 
 type Mutation {

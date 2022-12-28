@@ -92,6 +92,7 @@ const PostModal: React.FC<Props> = ({isVisible, onClose}) => {
       variables: {
         content: text,
       },
+      refetchQueries: ['CurrentUserPosts'],
     });
   };
 
